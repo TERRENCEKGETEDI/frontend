@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../state/AuthContext';
+import Chatbot from '../components/ui/Chatbot';
 
 const PublicLayout = ({ children }) => {
   const { user, logout } = useAuthContext();
@@ -210,6 +211,8 @@ const PublicLayout = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      <Chatbot />
     </div>
   );
 };
