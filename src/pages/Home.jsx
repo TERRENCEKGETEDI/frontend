@@ -67,10 +67,10 @@ const Home = () => {
             Empowering tertiary students with technology, innovation, and community building for a brighter future in tech.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/membership/application" className="btn btn-primary btn-lg">
+            <Link to="/membership/application" className="btn btn-primary btn-lg rounded-full">
               Join Our Community
             </Link>
-            <Link to="/about" className="btn btn-secondary btn-lg">
+            <Link to="/about" className="btn btn-secondary btn-lg rounded-full">
               Learn More
             </Link>
           </div>
@@ -95,7 +95,7 @@ const Home = () => {
             ))}
           </div>
           <div className="text-center">
-            <Link to="/news" className="btn btn-primary">
+            <Link to="/news" className="btn btn-primary rounded-full">
               View All News
             </Link>
           </div>
@@ -119,7 +119,7 @@ const Home = () => {
             ))}
           </div>
           <div className="text-center">
-            <Link to="/events" className="btn btn-primary">
+            <Link to="/events" className="btn btn-primary rounded-full">
               View All Events
             </Link>
           </div>
@@ -134,10 +134,10 @@ const Home = () => {
             Join thousands of students who are building their future in technology with NaTeSA.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/membership/application" className="btn btn-success btn-lg">
+            <Link to="/membership/application" className="btn btn-success btn-lg rounded-full">
               Become a Member
             </Link>
-            <Link to="/resources" className="btn btn-secondary btn-lg">
+            <Link to="/resources" className="btn btn-secondary btn-lg rounded-full">
               Explore Resources
             </Link>
           </div>

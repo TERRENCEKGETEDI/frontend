@@ -1,129 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../state/AuthContext';
+import Header from '../components/ui/Header';
 import Chatbot from '../components/ui/Chatbot';
+import logo from '../assets/natesa.jpg';
 
 const PublicLayout = ({ children }) => {
-  const { user, logout } = useAuthContext();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleLogout = () => {
-    logout();
-    setIsMenuOpen(false);
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Navigation Header */}
-      <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-primary-color rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">N</span>
-              </div>
-              <span className="text-2xl font-bold text-primary-color">NaTeSA</span>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-2">
-              <Link to="/" className="nav-link text-gray-700 hover:text-primary-color font-medium">
-                Home
-              </Link>
-              <Link to="/about" className="nav-link text-gray-700 hover:text-primary-color font-medium">
-                About
-              </Link>
-              <Link to="/news" className="nav-link text-gray-700 hover:text-primary-color font-medium">
-                News
-              </Link>
-              <Link to="/events" className="nav-link text-gray-700 hover:text-primary-color font-medium">
-                Events
-              </Link>
-              <Link to="/resources" className="nav-link text-gray-700 hover:text-primary-color font-medium">
-                Resources
-              </Link>
-              <div className="ml-4">
-                <Link to="/membership/application" className="btn btn-primary">
-                  Join Now
-                </Link>
-              </div>
-
-              {user ? (
-                <div className="flex items-center space-x-4 ml-4">
-                  <span className="text-gray-700 text-sm">Welcome, <span className="font-medium">{user.name || user.email}</span></span>
-                  <button onClick={handleLogout} className="btn btn-danger">
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="ml-4">
-                  <Link to="/auth/login" className="btn btn-secondary">
-                    Login
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary-color hover:bg-gray-100"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
-            </button>
-          </div>
-
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4 slide-in">
-              <div className="flex flex-col space-y-2">
-                <Link to="/" className="nav-link text-gray-700 hover:text-primary-color font-medium block" onClick={() => setIsMenuOpen(false)}>
-                  Home
-                </Link>
-                <Link to="/about" className="nav-link text-gray-700 hover:text-primary-color font-medium block" onClick={() => setIsMenuOpen(false)}>
-                  About
-                </Link>
-                <Link to="/news" className="nav-link text-gray-700 hover:text-primary-color font-medium block" onClick={() => setIsMenuOpen(false)}>
-                  News
-                </Link>
-                <Link to="/events" className="nav-link text-gray-700 hover:text-primary-color font-medium block" onClick={() => setIsMenuOpen(false)}>
-                  Events
-                </Link>
-                <Link to="/resources" className="nav-link text-gray-700 hover:text-primary-color font-medium block" onClick={() => setIsMenuOpen(false)}>
-                  Resources
-                </Link>
-                <div className="pt-2">
-                  <Link to="/membership/application" className="btn btn-primary w-full text-center block" onClick={() => setIsMenuOpen(false)}>
-                    Join Now
-                  </Link>
-                </div>
-
-                {user ? (
-                  <div className="border-t border-gray-200 pt-4 space-y-4">
-                    <span className="text-gray-700 block text-sm">Welcome, <span className="font-medium">{user.name || user.email}</span></span>
-                    <button onClick={handleLogout} className="btn btn-danger w-full">
-                      Logout
-                    </button>
-                  </div>
-                ) : (
-                  <div className="pt-2">
-                    <Link to="/auth/login" className="btn btn-secondary w-full text-center block" onClick={() => setIsMenuOpen(false)}>
-                      Login
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
+      <Header />
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -135,13 +19,15 @@ const PublicLayout = ({ children }) => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-color to-accent-color rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">N</span>
-                </div>
+              <div className="flex items-center space-x-4 mb-6">
+                <img
+                  src={logo}
+                  alt="NaTeSA Logo"
+                  className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-lg"
+                />
                 <div>
-                  <span className="text-2xl font-bold">NaTeSA</span>
-                  <p className="text-sm text-gray-400">National Tertiary Students Association</p>
+                  <span className="text-2xl font-bold text-white">NaTeSA</span>
+                  <p className="text-sm text-gray-300">National Tertiary Students Association</p>
                 </div>
               </div>
               <p className="text-gray-300 mb-6 max-w-md leading-relaxed">
