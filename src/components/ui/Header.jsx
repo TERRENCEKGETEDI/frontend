@@ -33,7 +33,7 @@ const Header = () => {
               />
               <div className="text-white">
                 <span className="text-2xl font-bold tracking-wide">NaTeSA</span>
-                <p className="text-xs text-blue-200 font-medium">National Tertiary Students Association</p>
+                <p className="text-xs text-blue-200 font-medium">Nazareth Tertiary Students Association</p>
               </div>
             </Link>
 

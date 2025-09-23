@@ -27,7 +27,7 @@ const PublicLayout = ({ children }) => {
                 />
                 <div>
                   <span className="text-2xl font-bold text-white">NaTeSA</span>
-                  <p className="text-sm text-gray-300">National Tertiary Students Association</p>
+                  <p className="text-sm text-gray-300">Nazareth Tertiary Students Association</p>
                 </div>
               </div>
               <p className="text-gray-300 mb-6 max-w-md leading-relaxed">

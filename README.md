@@ -1,6 +1,6 @@
 # NaTeSA Website - Scalable Roadmap
 
-NaTeSA (National Tertiary Students Association) is a platform for university students to connect, access resources, and participate in events. This project implements a scalable, modular React frontend with admin and user responsibilities.
+NaTeSA (Nazareth Tertiary Students Association) is a platform for university students to connect, access resources, and participate in events. This project implements a scalable, modular React frontend with admin and user responsibilities.
 
 ## Features
 
