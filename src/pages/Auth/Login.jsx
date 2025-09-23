@@ -4,7 +4,6 @@ import Form from '../../components/ui/Form';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import { useAuthContext } from '../../state/AuthContext';
-import { getMembers } from '../../services/memberService';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,17 +15,29 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    
     try {
-      // Mock login - find user in members
-      const members = await getMembers();
-      const user = members.find(m => m.email === email);
+      // Authenticate against your backend API
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      if (user && (user.status === 'Approved' || user.status === 'Alumni')) {
-        let role = 'student';
-        if (user.becRole === 'BEC Committee') role = 'bec_committee';
-        else if (user.becRole === 'NEC Member') role = 'nec_member';
-        else if (user.becRole === 'Master Admin') role = 'master_admin';
-        else if (email.includes('admin')) role = 'admin';
+      if (response.ok) {
+        const data = await response.json();
+        const user = data.user;
+        
+        console.log("✅ Login successful:", user);
+
+        // Determine role based on role_type from database
+        let role = 'student'; // default role
+        if (user.role_type === 'bec_committee') role = 'bec_committee';
+        else if (user.role_type === 'nec_member') role = 'nec_member';
+        else if (user.role_type === 'master_admin') role = 'master_admin';
+        else if (user.role_type === 'admin') role = 'admin';
 
         login(user, role);
 
@@ -39,25 +50,47 @@ const Login = () => {
           navigate('/');
         }
       } else {
-        alert('Invalid credentials or account not approved');
+        const errorData = await response.json();
+        alert(errorData.error || 'Invalid credentials');
       }
     } catch (error) {
       console.error('Login failed:', error);
-      alert('Login failed. Please try again.');
+      alert('Login failed. Please check your connection and try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Login</h1>
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">Login</h1>
       <Form onSubmit={handleSubmit}>
-        <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button type="submit">Login</Button>
+        <Input 
+          label="Email" 
+          type="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          placeholder="Enter your email"
+        />
+        <Input 
+          label="Password" 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder="Enter your password"
+        />
+        <Button type="submit" disabled={loading} className="w-full">
+          {loading ? 'Logging in...' : 'Login'}
+        </Button>
       </Form>
-      <p className="mt-4">Don't have an account? <Link to="/auth/register" className="text-blue-600">Register</Link></p>
+      <p className="mt-4 text-center text-gray-600">
+        Don't have an account?{' '}
+        <Link to="/auth/register" className="text-blue-600 hover:text-blue-800 font-semibold">
+          Register here
+        </Link>
+      </p>
     </div>
   );
 };
